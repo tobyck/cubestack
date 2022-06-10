@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="web/style.css">
+    <title>Cubestack - Online Interpreter</title>
+</head>
+<body>
+    <header>
+        <h1 class="title"><a href="https://github.com/tobyck/cubestack" title="Go to the git repository">Cubestack</a></h1>
+        <button id="run-button" onclick="run()" title="Run code (cmd + enter)">
+            <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="#ddd"><path d="M19.15 18.25V29.75Q19.15 30.65 19.925 31.1Q20.7 31.55 21.45 31.05L30.5 25.25Q31.2 24.8 31.2 24Q31.2 23.2 30.5 22.75L21.45 16.95Q20.7 16.45 19.925 16.9Q19.15 17.35 19.15 18.25ZM24 44Q19.9 44 16.25 42.425Q12.6 40.85 9.875 38.125Q7.15 35.4 5.575 31.75Q4 28.1 4 24Q4 19.9 5.575 16.25Q7.15 12.6 9.875 9.875Q12.6 7.15 16.25 5.575Q19.9 4 24 4Q28.1 4 31.75 5.575Q35.4 7.15 38.125 9.875Q40.85 12.6 42.425 16.25Q44 19.9 44 24Q44 28.1 42.425 31.75Q40.85 35.4 38.125 38.125Q35.4 40.85 31.75 42.425Q28.1 44 24 44Z"/></svg>
+        </button>
+    </header>
+    <div class="container">
+        <div id="code" class="block">
+            <textarea id="code-textarea" spellcheck="false" placeholder="Code..." oninput="expand(this)"></textarea>
+            <div id="code-display"></div>
+        </div>
+        
+        <div id="input" class="block">
+            <textarea id="input-textarea" spellcheck="false" placeholder="Inputs..." oninput="expand(this)"></textarea>
+        </div>
+
+        <div id="output" class="block"><span style="color:#666">Output...</span>
+        </div>
+
+        <div id="conversion" class="block">
+            <input type="text" placeholder="Number or string..." id="num-or-str">
+            <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" class="arrow" fill="#999"><path d="M31.1 26.25 23.55 18.7Q23.3 18.45 23.2 18.2Q23.1 17.95 23.1 17.65Q23.1 17.35 23.2 17.1Q23.3 16.85 23.55 16.6L31.15 9Q31.55 8.6 32.15 8.6Q32.75 8.6 33.2 9.05Q33.65 9.5 33.65 10.1Q33.65 10.7 33.2 11.15L28.2 16.15H42.5Q43.15 16.15 43.575 16.575Q44 17 44 17.65Q44 18.3 43.575 18.725Q43.15 19.15 42.5 19.15H28.2L33.25 24.2Q33.65 24.6 33.65 25.2Q33.65 25.8 33.2 26.25Q32.75 26.7 32.15 26.7Q31.55 26.7 31.1 26.25ZM14.8 38.95Q15.25 39.4 15.85 39.4Q16.45 39.4 16.9 38.95L24.45 31.4Q24.7 31.15 24.8 30.9Q24.9 30.65 24.9 30.35Q24.9 30.05 24.8 29.8Q24.7 29.55 24.45 29.3L16.85 21.7Q16.45 21.3 15.85 21.3Q15.25 21.3 14.8 21.75Q14.35 22.2 14.35 22.8Q14.35 23.4 14.8 23.85L19.8 28.85H5.5Q4.85 28.85 4.425 29.275Q4 29.7 4 30.35Q4 31 4.425 31.425Q4.85 31.85 5.5 31.85H19.8L14.75 36.9Q14.35 37.3 14.35 37.9Q14.35 38.5 14.8 38.95Z"/></svg>
+            <input type="text" placeholder="Moves..." id="moves">
+        </div>
+
+        <div id="visualisation" class="block">
+            <canvas id="canvas" title="This is what a Rubiks Cube would look&#010;like if the moves in your Cubestack code&#010;were performed on a real Rubiks Cube."></canvas>
+        </div>
+    </div>
+    <div style="height: 150px;"></div>
+</body>
+<script src="cubestack/stdlib.js"></script>
+<script src="cubestack/cubestack.js"></script>
+<script src="web/highlight.js"></script>
+<script src="web/visualise.js"></script>
+<script src="web/main.js"></script>
+</html>

@@ -1,0 +1,148 @@
+* {
+    font-family: monospace;
+}
+
+html {
+    background-color: #222;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+header {
+    width: 70vw;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.title a {
+    color: #ddd;
+    font-size: 35px;
+    text-decoration: none;
+    transition: 0.35s ease;
+}
+
+.title a:hover {
+    color: #aaa;
+}
+
+.title {
+    text-align: center;
+}
+
+#run-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.container {
+    position: relative;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;
+    background: linear-gradient(to top, #222 calc(100% - 17px), transparent 0%);
+}
+
+.block {
+    background-color: #333;
+    width: 70vw;
+    border-radius: 17px;
+    margin-bottom: 30px;
+}
+
+#code {
+    padding-bottom: 22px;
+    box-shadow: 0 -22px 60px #222;
+}
+
+#code-display, #code-textarea {
+    font-size: 18px;
+    min-height: 22px;
+    padding: 22px;
+    white-space: pre-wrap;
+}
+
+textarea {
+    width: calc(70vw - 22px * 2);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 22px;
+}
+
+#code-textarea {
+    position: fixed;
+    top: inherit;
+    left: inherit;
+    color: transparent;
+    caret-color: #ddd;
+}
+
+#code-textarea::selection {
+    background-color: rgba(255, 255, 255, 0.3)
+}
+
+textarea::placeholder, input::placeholder {
+    color: #666;
+    opacity: 1;
+}
+
+#input {
+    padding-bottom: 19px;
+}
+
+#input-textarea {
+    font-size: 18px;
+    color: #ddd;
+    padding-bottom: 0;
+}
+
+#output {
+    font-size: 18px;
+    padding: 22px;
+    width: calc(70vw - 22px * 2);
+    color: #ddd;
+    white-space: pre;
+}
+
+#conversion {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.arrow {
+    transform: scale(0.6);
+}
+
+input {
+    font-size: 18px;
+    color: #ddd;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 26vw;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #666;
+}
+
+#visualisation {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,14 @@
+{
+    "name": "@toby_ck/cubestack",
+    "author": "Toby Connor-Kebbell",
+    "version": "1.0.0",
+    "description": "A stack-based esolang that only uses moves on a Rubiks Cube.",
+    "license": "MIT",
+    "repository": "tobyck/cubestack",
+    "main": "main.js",
+    "keywords": [
+        "esolang",
+        "stack based",
+        "rubiks cube"
+    ]
+}
