@@ -1,3 +1,5 @@
+# Cubestack Documentation
+
 ## Literals
 Unlike sensible languages, literals are econded in base 36, then each digit is mapped to a move on a Rubiks Cube. 
 
