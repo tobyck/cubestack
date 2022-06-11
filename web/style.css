@@ -134,7 +134,7 @@ input {
     background-color: transparent;
     border: none;
     outline: none;
-    width: 26vw;
+    width: calc(70vw / 2 - 120px);
     padding-bottom: 8px;
     border-bottom: 3px solid #666;
 }

@@ -42,9 +42,12 @@ var updateDisplay = () => {
 
 }
 
-window.addEventListener("load", updateDisplay);
 $("#code-textarea").addEventListener("input", updateDisplay);
 window.addEventListener("resize", updateDisplay);
+window.addEventListener("load", () => {
+    expand($("#code-textarea"));
+    updateDisplay();
+});
 
 var expand = (element) => {
     element.style.height = "0";

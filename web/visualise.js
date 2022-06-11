@@ -4,7 +4,6 @@ Returns an object containing what the cube would look like after given moves.
 
 var generateCube = (moves) => {
     moves = moves.trim().replace(/\s{2,}|\n/g, " ")
-    console.log(moves)
 
     var cube = {
         front: Array(9).fill("green"),
