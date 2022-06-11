@@ -8,7 +8,7 @@ To use Cubestack, you can either use the [online interpreter](https://cubestack.
 
 1. Clone this repository
 ```
-git clone https://github.com/tobyck/cubestack
+git clone https://github.com/tobyck/cubestack.git
 ```
 2. Open the `cubestack` directory
 ```
