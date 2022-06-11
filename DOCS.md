@@ -1,5 +1,16 @@
 # Cubestack Documentation
 
+## Contents
+  - [Literals](#literals)
+  - [Math](#math)
+  - [Logic](#logic)
+  - [List Operations](#list-operations)
+  - [Other Functions](#other-functions)
+  - [Conditionals](#conditionals)
+  - [For Loops](#for-loops)
+  - [While Loops](#while-loops)
+  - [A Final Note](#a-final-note)
+
 ## Literals
 Unlike all sensible languages, literals are econded in base 36, then each digit is mapped to a move on a Rubiks Cube. Luckily, there is a converter on the online interpreter. 
 
