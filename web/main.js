@@ -45,7 +45,17 @@ var updateDisplay = () => {
 $("#code-textarea").addEventListener("input", updateDisplay);
 window.addEventListener("resize", updateDisplay);
 window.addEventListener("load", () => {
+    if (location.search) {
+        var [code, input] = location.search.slice(1).split("&").map(query => atob(decodeURIComponent(query)));
+        console.log(code + "\n" + input);
+        $("#code-textarea").value = code;
+        $("#input-textarea").value = input;
+        updateDisplay();
+        run();
+    }
+
     expand($("#code-textarea"));
+    expand($("#input-textarea"));
     updateDisplay();
 });
 
@@ -109,3 +119,23 @@ $("#num-or-str").addEventListener("input", () => {
         $("#moves").value = "";
     }
 });
+
+$(".clear").onclick = () => {
+    $("#code-textarea").value = "";
+    $("#code-display").innerHTML = "";
+    $("#input-textarea").value = "";
+    $("#output").innerHTML = '<span style="color:#666">Output...</span><br>\n';
+    expand($("#input-textarea"));
+    updateDisplay();
+}
+
+$(".link").onclick = () => {
+    var code = $("#code-textarea").value,
+        input = $("#input-textarea").value;
+    
+    if (code || input) {
+        $("#output").innerText = `${location.href}?${encodeURIComponent(btoa(code))}&${encodeURIComponent(btoa(input))}`;
+    } else {
+        $("#output").innerText = location.origin;
+    }
+}

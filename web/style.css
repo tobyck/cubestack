@@ -35,17 +35,29 @@ header {
 }
 
 .title {
-    text-align: center;
+    margin-left: 10px;
 }
 
-#run-button {
+header svg {
+    fill: #ddd;
+}
+
+.buttons button {
+    margin-left: 12px;
+}
+
+button {
     background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;
+    
+}
+
+.buttons {
     position: fixed;
-    right: 0;
     top: 50%;
+    right: 0;
     transform: translateY(-50%);
 }
 
@@ -118,7 +130,7 @@ textarea::placeholder, input::placeholder {
     padding: 22px;
     width: calc(70vw - 22px * 2);
     color: #ddd;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 #conversion {
