@@ -49,13 +49,25 @@ window.addEventListener("load", () => {
     updateDisplay();
 });
 
+$("#code-textarea").addEventListener("keydown", event => {
+    if (event.key == "Tab") {
+        event.preventDefault();
+        $("#code-textarea").setRangeText(
+            "  ",
+            $("#code-textarea").selectionStart,
+            $("#code-textarea").selectionStart,
+            "end"
+        );
+    }
+});
+
 var expand = (element) => {
     element.style.height = "0";
     element.style.height = (element.scrollHeight) + "px";
 }
 
 var run = () => {
-    var compiled = compile(lex($("#code-textarea").value), $("#input-textarea").value, { platform: "web" });
+    var compiled = compile(lex($("#code-display").innerText), $("#input-textarea").value, { platform: "web" });
     eval(compiled);
 }
 

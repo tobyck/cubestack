@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'Menlo';
+    src: url('menlo.woff') format('woff');
+}
+
 * {
-    font-family: monospace;
+    font-family: "Menlo";
 }
 
 html {
