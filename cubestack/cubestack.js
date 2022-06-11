@@ -109,7 +109,7 @@ var lex = (code) => {
         tokens.push(new Token("error", "invalid move", move, `${move} is not a valid move on a 3x3 rubiks cube`));
     }
 
-    for (var move of (code ?? "").replace(/\n/g, " ").replace(/\s\s/g, " ").split(" ")) {
+    for (var move of (code ?? "").replace(/\n/g, " ").replace(/\s\s/g, " ").split(" ").filter(move => !!move)) {
         if (state == "string") {
             if (base36map.includes(move)) {
                 token.push(move);
@@ -348,16 +348,17 @@ var compile = (tokens, input = "", options = {}) => {
                 compiled.push(`}`);
             }
         } else if (token.type == "error") {
+            globalThis.errored = true;
             if (options.platform == "node") {
-                compiled.push(`process.stdout.write("error:\\n  ${token.name}\\n  ${token.value}");`);
+                compiled.push(`process.stdout.write("error:\\n  ${token.name}\\n  ${token.value}\\n");`);
             } else if (options.platform == "web") {
-                compiled.push(`$("#output").innerText += "error:\\n  ${token.name}\\n  ${token.value}";`);
+                compiled.push(`$("#output").innerText += "error:\\n  ${token.name}\\n  ${token.value}\\n";`);
             }
             break;
         }
     }
     
-    if (!printed && options.setup) {    
+    if (!printed && options.setup && !globalThis.errored) {    
         compiled.push(
             `var toPrint = ${options.stackName}.pop() ?? "";`,              
             `if (typeof toPrint != "string") toPrint = JSON.stringify(toPrint, null, 2);`,
