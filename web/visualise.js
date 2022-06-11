@@ -3,7 +3,8 @@ Returns an object containing what the cube would look like after given moves.
 */
 
 var generateCube = (moves) => {
-    moves = moves.trim();
+    moves = moves.trim().replace(/\s{2,}|\n/g, " ")
+    console.log(moves)
 
     var cube = {
         front: Array(9).fill("green"),
@@ -135,7 +136,7 @@ var generateCube = (moves) => {
         return flat;
     }
 
-    if (moves.split(" ").filter(move => !(move in moveMap)).length < 1 || moves.length == 0) {
+    if (moves.split(" ").filter(move => !!move).filter(move => !(move in moveMap)).length < 1 || moves.length == 0) {
         var moves = deepFlatten(moves.split(" ").map(move => (moveMap[move] ?? "").split(" ")));
         while (moves.filter(item => !"xyzU".includes(item)).length > 0) {
             moves = deepFlatten(moves.map(item => moveMap[item].split(" ")));

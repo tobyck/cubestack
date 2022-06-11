@@ -109,7 +109,7 @@ var lex = (code) => {
         tokens.push(new Token("error", "invalid move", move, `${move} is not a valid move on a 3x3 rubiks cube`));
     }
 
-    for (var move of (code ?? "").replace(/\n/g, " ").replace(/\s\s/g, " ").split(" ").filter(move => !!move)) {
+    for (var move of (code ?? "").replace(/\s{2,}|\n/g, " ").split(" ").filter(move => !!move)) {
         if (state == "string") {
             if (base36map.includes(move)) {
                 token.push(move);
