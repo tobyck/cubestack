@@ -44,7 +44,7 @@ var stdlib = {
         } else {
             if ([a, b].filter(arg => typeof arg == "string").length == 1) {
                 if (typeof a == "string") {
-                    return a.reverse();
+                    return a.split("").reverse().join("");
                 } else {
                     return b.reverse();
                 }
