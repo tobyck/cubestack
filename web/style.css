@@ -44,11 +44,15 @@ header {
 
 header svg {
     fill: #eee;
-    transition: 0.35s ease;
+    transition: fill 0.35s ease, transform 0.08s ease;
 }
 
 header svg:hover {
     fill: #aaa;
+}
+
+header svg:active {
+    transform: scale(.9);
 }
 
 .buttons button {

@@ -17,6 +17,7 @@ var drawFace = (data, x, y) => {
             "red": "#fa3c3c",
             "blue": "#0080ff",
         }
+        
         ctx.fillStyle = colourMap[data[i]] || "grey";
         ctx.fillRect(x + (i % 3) * faceSize / 3 + (gap * (i % 3)), y + Math.floor(i / 3) * faceSize / 3 + (gap * Math.floor(i / 3)), faceSize / 3, faceSize / 3);
         ctx.strokeRect(x + (i % 3) * faceSize / 3 + (gap * (i % 3)), y + Math.floor(i / 3) * faceSize / 3 + (gap * Math.floor(i / 3)), faceSize / 3, faceSize / 3);
