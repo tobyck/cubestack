@@ -7,6 +7,10 @@
     font-family: "Menlo";
 }
 
+*::selection {
+    background-color: rgba(255, 255, 255, 0.3)
+}
+
 html {
     background-color: #222;
 }
@@ -24,8 +28,8 @@ header {
 }
 
 .title a {
-    color: #ddd;
-    font-size: 35px;
+    color: white;
+    font-size: 38px;
     text-decoration: none;
     transition: 0.35s ease;
 }
@@ -39,7 +43,12 @@ header {
 }
 
 header svg {
-    fill: #ddd;
+    fill: #eee;
+    transition: 0.35s ease;
+}
+
+header svg:hover {
+    fill: #aaa;
 }
 
 .buttons button {
@@ -79,7 +88,7 @@ button {
 
 #code {
     padding-bottom: 22px;
-    box-shadow: 0 -22px 60px #222;
+    box-shadow: 0 40px 80px 70px #222;
 }
 
 #code-display, #code-textarea {
@@ -106,10 +115,6 @@ textarea {
     caret-color: #ddd;
 }
 
-#code-textarea::selection {
-    background-color: rgba(255, 255, 255, 0.3)
-}
-
 textarea::placeholder, input::placeholder {
     color: #666;
     opacity: 1;
@@ -130,7 +135,7 @@ textarea::placeholder, input::placeholder {
     padding: 22px;
     width: calc(70vw - 22px * 2);
     color: #ddd;
-    white-space: pre-wrap;
+    white-space: pre;
 }
 
 #conversion {

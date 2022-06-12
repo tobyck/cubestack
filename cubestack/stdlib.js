@@ -29,9 +29,9 @@ var stdlib = {
     "L": (a, b) => {
         if ([a, b].filter(arg => typeof arg == "string").length == 1) {
             if (typeof a == "string") {
-                return a.repeat(b);
+                return a.repeat(Math.abs(b));
             } else {
-                return b.repeat(a);
+                return b.repeat(Math.abs(a));
             }
         } else {
             return a * b;

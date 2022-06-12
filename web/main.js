@@ -133,9 +133,11 @@ $(".link").onclick = () => {
     var code = $("#code-textarea").value,
         input = $("#input-textarea").value;
     
+    $("#output").style.overflow = "scroll";
     if (code || input) {
         $("#output").innerText = `${location.href}?${encodeURIComponent(btoa(code))}&${encodeURIComponent(btoa(input))}`;
     } else {
+        
         $("#output").innerText = location.origin;
     }
 }
