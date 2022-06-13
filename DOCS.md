@@ -73,3 +73,6 @@ For loops are created by pushing something to iterate to the stack, then pushing
 
 ## While Loops
 To create a while loop, use `z <condition> z2 <code> z'`, The code will run until the condition is false. Exiting the loop is the same as exiting a for loop - `S2`.
+
+## A Final Note
+If you actually just read all of that, I'm sorry.
