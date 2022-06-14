@@ -216,17 +216,26 @@ var compile = (tokens, input = "", options = {}) => {
         platform: "node",
         stackName: "stack",
         setup: true,
-        includeStack: true,
         joinCompiled: "\n"
     }
 
     for (var key in defaultOptions) defaultOptions[key] = options[key] ?? defaultOptions[key];
     options = defaultOptions;
-    
-    var compiled = options.includeStack ? [`var ${options.stackName} = [];`] : [];
+
+    var compiled = [];
     if (options.setup) {
+        if (input) {
+            compiled.push(
+                `var inputs = ${JSON.stringify(input.split(options.inputSplit))}.map(item => item.split("").filter(char => Number.isNaN(parseInt(char))).length > 0 ? item : parseFloat(item));`,
+                `var ${options.stackName} = inputs;`
+            );
+        } else {
+            compiled.push(`var ${options.stackName} = [];`);
+        }
+        
         if (options.platform == "node") compiled.push("var stdlib = require(\"./stdlib.js\");");
         else if (options.platform == "web") compiled.push(`$("#output").innerText = "";`)
+
         compiled.push("var loopVars = {};");
     }
 
@@ -238,7 +247,6 @@ var compile = (tokens, input = "", options = {}) => {
                 for (var elem of token.value) {
                     var listEvalOptions = structuredClone(options);
                     listEvalOptions.setup = false;
-                    listEvalOptions.includeStack = false;
                     listEvalOptions.stackName = "stackCopy"
                     compiled.push(
                         `var ${listEvalOptions.stackName} = stack.slice();`,
@@ -287,8 +295,7 @@ var compile = (tokens, input = "", options = {}) => {
                         `${options.stackName} = ${options.stackName}.slice(0, ${options.stackName}.length - 2).concat(topTwo.reverse());`,
                     );
                 } else if (token.moves == "f2") { // exit the program
-                    compiled.push("// program exited (f2 command)");
-                    return compiled.join("\n");
+                    compiled.push("process.exit(0);");
                 } else if (token.moves == "y2") { // get a loop variable
                     compiled.push(`${options.stackName}.push(loopVars[${options.stackName}.pop()]);`);
                 } else if (token.moves == "S2") { // break a loop
@@ -298,7 +305,6 @@ var compile = (tokens, input = "", options = {}) => {
         } else if (token.type == "control flow") {
             var codeBlockOptions = structuredClone(options);
             codeBlockOptions.setup = false;
-            codeBlockOptions.includeStack = false;
 
             if (token.name == "if") {
                 compiled.push(
@@ -336,7 +342,6 @@ var compile = (tokens, input = "", options = {}) => {
                 } else {
                     var conditionEvalOptions = structuredClone(options);
                     conditionEvalOptions.setup = false;
-                    conditionEvalOptions.includeStack = false;
                     conditionEvalOptions.stackName = "stackCopy"
                     compiled.push(
                         `var ${conditionEvalOptions.stackName} = stack.slice();`,
