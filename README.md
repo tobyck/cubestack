@@ -1,6 +1,6 @@
 ### Cubestack
 
-Cubestack (from "Rubiks Cube" and "stack-based") is a stack based esolang which serves absolutly no purpose. The whole language has a total of 56 commands, *all* of which are [moves on a Rubiks Cube](https://jperm.net/3x3/moves). To learn Cubestack see [the docs](https://github.com/tobyck/cubestack/blob/master/DOCS.md), although I'd recommend against it if you value your sanity.
+Cubestack (from "Rubiks Cube" and "stack-based") is a stack based esolang which serves absolutely no purpose. The whole language has a total of 56 commands, *all* of which are [moves on a Rubiks Cube](https://jperm.net/3x3/moves). To learn Cubestack see [the docs](https://github.com/tobyck/cubestack/blob/master/DOCS.md), although I'd recommend against it if you value your sanity.
 
 ### Usage
 
