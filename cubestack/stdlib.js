@@ -90,7 +90,7 @@ var stdlib = {
     "B2": (a) => !a,
 
     // list operaters
-    "r": (a, b) => a[b % a.length],
+    "r": (a, b) => a[(a.length + b) % a.length],
     "r'": (a, b) => a.indexOf(b),
     "r2": (a, b) => a.concat([b]),
     "d": (a, b) => {
