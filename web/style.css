@@ -4,7 +4,7 @@
 }
 
 * {
-    font-family: "Menlo";
+    font-family: "Menlo", monospace;
 }
 
 *::selection {
@@ -42,9 +42,13 @@ header {
     margin-left: 10px;
 }
 
+svg {
+    transition: fill 0.35s ease;
+}
+
 header svg {
     fill: #eee;
-    transition: fill 0.35s ease, transform 0.08s ease;
+    transition: transform 0.08s ease;
 }
 
 header svg:hover {
