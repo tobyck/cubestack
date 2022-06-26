@@ -4,7 +4,7 @@ Cubestack (from "Rubiks Cube" and "stack-based") is a stack based esolang which 
 
 ### Usage
 
-To use Cubestack, you can either use the [online interpreter](https://cubestack.surge.sh), or clone this repository with the following instructions:
+To use Cubestack, you can either use the [online interpreter](https://cubestack.surge.sh), or clone this repository:
 
 1. Clone this repository
 ```
