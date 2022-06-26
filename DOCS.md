@@ -32,7 +32,7 @@ Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for
 ## Logic
 `D` - Equal  
 `D'` - Not equal  
-`F` - Less than
+`F` - Less than  
 `F'` - Greater than  
 `B` - Less than or equal to  
 `B'` - Greater than or equal to  
