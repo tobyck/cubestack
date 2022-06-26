@@ -18,7 +18,7 @@ For strings, `"hi"` would first become it's ASCII codes, `[104, 105]`, then in b
 
 For numbers, the number is just converted to base 36 then has the decimal place (if present) replaced with `M2`. For example `12.34` would become `["c", "y"]`, then each digit mapped to a move, joined with `M2`, and put inside `M` and `M'` resulting in `M U M2 b' M'`. Note that to make a negative number you need to either multiply it by -1 (`M M'`) or subtract it from zero.
 
-Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for seperating list items. Note that until v1.1 (hopefully) literal multi-dimensional lists will be flattened.
+Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for seperating list items.
 
 ## Math
 `R` - Add  
