@@ -45,7 +45,7 @@ Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for
 `r'` - Index of `b` in `a`  
 `r2` - Push `b` to `a`  
 `d` - Remove item at index  
-`u` - Join list `a` with list `b`  
+`u` - Join list `a` by `b`  
 `u'` - Split list `a` at `b`  
 `l2` - `a.slice(b, c)`  
 `u2` - Shift list `a`, `b` times  
