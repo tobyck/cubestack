@@ -274,7 +274,7 @@ var compile = (tokens, input = "", options = {}) => {
                     cubestackPrint();
                     globalThis.printed = true;
                 } else if (token.moves == "b'") { // get all input wrapped in a list
-                    compiled.push(`${options.stackName}.push(${JSON.stringify(input.split(options.inputSplit))}.map(item => item.split("").filter(char => Number.isNaN(parseInt(char))).length > 0 ? item : parseFloat(item)));`);
+                    compiled.push(`${options.stackName}.push(${JSON.stringify(input.split(options.inputSplit))}.map(item => item.split("").filter(char => Number.isNaN(parseFloat(char))).length > 0 ? item : parseFloat(item)));`);
                 } else if (token.moves == "M2") { // duplicate top item
                     compiled.push(`${options.stackName}.push(${options.stackName}[${options.stackName}.length - 1]);`);
                 } else if (token.moves == "U'") { // pop the stack
