@@ -43,12 +43,12 @@ header {
 }
 
 svg {
-    transition: fill 0.35s ease;
+    transition: 0.35s ease;
 }
 
 header svg {
     fill: #eee;
-    transition: transform 0.08s ease;
+    transition: fill 0.35s ease, transform 0.08s ease;
 }
 
 header svg:hover {
