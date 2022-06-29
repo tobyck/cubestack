@@ -73,11 +73,15 @@ var singleMoveCommands = allMoves.slice(0, 39),
     stdlibFunctions = allMoves.slice(0, 29);
 
 class Token {
-    constructor(type, name, moves, value = null) {
+    constructor(type, name, moves, value = null, pop = true) {
         this.type = type; // type of token e.g. "function"
-        this.name = name; // name of token e.g. "add"
-        this.moves = moves; // list of moves
-        this.value = value;
+        this.moves = moves; // list of moves associated with token
+        if (type != "function") {
+            this.name = name; // name of token e.g. "add"
+            this.value = value;
+        } else {
+            this.pop = pop; // whether or not to pop the stack
+        }
     
         if (value == null) {
             switch (name) {
@@ -133,7 +137,6 @@ class Token {
                     break;
                 case "for loop":
                     this.value = lex(moves.slice(1, -1).join(" "));
-                    break;
             }
         }
     }
@@ -169,6 +172,7 @@ var lex = (code) => {
                     else type = "control flow";
                     tokens.push(new Token(type, BLOCKS[moveForBlock], token))
                     state = "";
+                    token = [];
                 }
             } else {
                 if (allMoves.includes(move)) {
@@ -184,8 +188,16 @@ var lex = (code) => {
                 var openedBlocks = 1,
                     closedBlocks = 0;
             } else if (singleMoveCommands.includes(move)) {
-                tokens.push(new Token("function", null, move));
-            } else {
+                if (move == "u2") {
+                    token = [move];
+                } else {
+                    if (token.length == 0) {
+                        tokens.push(new Token("function", null, move));
+                    } else {
+                        tokens.push(new Token("function", null, move, null, false));
+                    }
+                }
+            } else if (!allMoves.includes(move)) {
                 invalidMoveError();
             }
         }
@@ -209,6 +221,7 @@ var compile = (tokens, input = "", options = {}) => {
     options = defaultOptions;
 
     if (typeof globalThis.depth == "undefined") globalThis.depth = 0;
+    globalThis.errored = false;
     
     var compiled = options.includeStack ? [`var ${options.stackName} = [];`] : [];
     if (options.setup) {
@@ -217,12 +230,11 @@ var compile = (tokens, input = "", options = {}) => {
         compiled.push("var loopVars = {};");
     }
 
-    var cubestackPrint = () => {
-        compiled.push(
-            `var toPrint = ${options.stackName}.pop() ?? "";`,
-            `if (Array.isArray(toPrint)) toPrint = JSON.stringify(toPrint, null, 2);`,
-        );
+    var cubestackPrint = (pop = true) => {
+        if (pop) compiled.push(`var toPrint = ${options.stackName}.pop() ?? "";`);
+        else compiled.push(`var toPrint = ${options.stackName}[${options.stackName}.length - 1] ?? "";`);
 
+        compiled.push(`if (Array.isArray(toPrint)) toPrint = JSON.stringify(toPrint, null, 2);`);
         if (options.platform == "node") {
             compiled.push(`process.stdout.write(toPrint + ${JSON.stringify(options.lineEnding)});`);
         } else if (options.platform == "web") {
@@ -264,14 +276,16 @@ var compile = (tokens, input = "", options = {}) => {
             }
         } else if (token.type == "function") {
             if (stdlibFunctions.includes(token.moves)) {
-                compiled.push(
-                    `var args = ${options.stackName}.slice(${options.stackName}.length - stdlib["${token.moves}"].length);`,
-                    `${options.stackName} = ${options.stackName}.slice(0, ${options.stackName}.length - args.length);`,
-                    `${options.stackName}.push(stdlib["${token.moves}"](...args));`
-                );
+                if (token.pop) compiled.push(
+                        `var args = ${options.stackName}.slice(${options.stackName}.length - stdlib["${token.moves}"].length);`,
+                        `${options.stackName} = ${options.stackName}.slice(0, ${options.stackName}.length - args.length);`,
+                    );
+                else compiled.push(`var args = ${options.stackName}.slice(-stdlib["${token.moves}"].length);`);
+
+                compiled.push(`${options.stackName}.push(stdlib["${token.moves}"](...args));`);
             } else {
                 if (token.moves == "b") { // print (without trailing newline)
-                    cubestackPrint();
+                    cubestackPrint(token.pop);
                     globalThis.printed = true;
                 } else if (token.moves == "b'") { // get all input wrapped in a list
                     compiled.push(`${options.stackName}.push(${JSON.stringify(input.split(options.inputSplit))}.map(input => /[\\d\\.]+/.test(input) ? parseFloat(input) : input));`);

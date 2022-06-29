@@ -2,10 +2,11 @@
 
 ## Contents
   - [Literals](#literals)
-  - [Math](#math)
-  - [Logic](#logic)
-  - [List Operations](#list-operations)
-  - [Other Functions](#other-functions)
+  - [Functions](#literals)
+    - [Math](#math)
+    - [Logic](#logic)
+    - [List](#list)
+    - [Other](#other)
   - [Conditionals](#conditionals)
   - [For Loops](#for-loops)
   - [While Loops](#while-loops)
@@ -20,7 +21,11 @@ For numbers, the number is just converted to base 36 then has the decimal place 
 
 Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for seperating list items.
 
-## Math
+## Functions
+
+Functions pop a certain amount of items off the stack perform an operation, then push the result back onto the stack. You can also preceed a function with `u2` to make the function not pop from the stack.
+
+### Math
 `R` - Add  
 `R'` - Subtract (or if one of the arguments is a string and the other is a number, `str.slice(0, -num)`  
 `L` - Multiply (or in the same scenario as above, `str.repeat(num)`)  
@@ -29,7 +34,7 @@ Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for
 `R2` - Nth Root (or if one of the arguments is a string, `str.toLowerCase()`)  
 `U` - Modulo  
 
-## Logic
+### Logic
 `D` - Equal  
 `D'` - Not equal  
 `F` - Less than  
@@ -40,7 +45,7 @@ Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for
 `F2` - Or  
 `B2` - Not  
 
-## List Operations
+### List
 `r` - Item at index `b` in `a`  
 `r'` - Index of `b` in `a`  
 `r2` - Push `b` to `a`  
@@ -48,10 +53,9 @@ Lists are notated with `E` and `E'` (the equivelent of `[` and `]`) and `E2` for
 `u` - Join list `a` by `b`  
 `u'` - Split list `a` at `b`  
 `l2` - `a.slice(b, c)`  
-`u2` - Shift list `a`, `b` times  
 
 
-## Other Functions
+### Other
 `b` - Print  
 `b'` - Get all inputs wrapped in a list  
 `b2` - Push a copy of the stack to the stack  

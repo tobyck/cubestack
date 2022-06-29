@@ -100,7 +100,6 @@ var stdlib = {
     "u": (a, b) => a.join(b),
     "u'": (a, b) => a.split(b),
     "l2": (a, b, c) => a.slice(b, c),
-    "u2": (a, b) => a.slice(b).concat(a.slice(0, b)),
     "l": (a) => a.length,
     "d2": () => Math.random(),
     "U2": (a, b, c) => {
@@ -130,7 +129,7 @@ var stdlib = {
 
 var index = 0;
 for (var key in stdlib) {
-    if (index < 16 && stdlib[key].length == 2 && !"L' L2 R2".split(" ").includes(key)) {
+    if (index < 16 && stdlib[key].length == 2 && !"L' L2 R2 l2".split(" ").includes(key)) {
         let func = stdlib[key];
         stdlib[key] = (a, b) => {
             if (b == undefined) {
