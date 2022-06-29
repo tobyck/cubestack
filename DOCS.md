@@ -49,7 +49,6 @@ Functions pop a certain amount of items off the stack perform an operation, then
 `r` - Item at index `b` in `a`  
 `r'` - Index of `b` in `a`  
 `r2` - Push `b` to `a`  
-`d` - Remove item at index  
 `u` - Join list `a` by `b`  
 `u'` - Split list `a` at `b`  
 `l2` - `a.slice(b, c)`  
@@ -62,6 +61,7 @@ Functions pop a certain amount of items off the stack perform an operation, then
 `d'` - Set the stack to the top item on the stack  
 `U'` - Pop the stack  
 `l'` - Swap the top two items on the stack  
+`d` - Push each item of list to the stack, (similar to `...` in JS)
 `f2` - Exit the program  
 `l` - Length of `a`  
 `f` - Floor the top item on the stack  

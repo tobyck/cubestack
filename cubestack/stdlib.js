@@ -93,10 +93,6 @@ var stdlib = {
     "r": (a, b) => a[(a.length + b) % a.length],
     "r'": (a, b) => a.indexOf(b),
     "r2": (a, b) => a.concat([b]),
-    "d": (a, b) => {
-        a.splice(b, 1);
-        return a;
-    },
     "u": (a, b) => a.join(b),
     "u'": (a, b) => a.split(b),
     "l2": (a, b, c) => a.slice(b, c),

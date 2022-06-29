@@ -56,11 +56,11 @@ var allMoves = [
     "R", "R'", "L", "L'", "L2", "R2",
     "U", "D", "D'", "F", "F'", "B", 
     "B'", "D2", "F2", "B2", "r", "r'",
-    "r2", "d", "u", "u'", "l2", "u2", 
+    "r2", "u'", "l2", "u2", 
     "l", "d2", "U2", "f", "f'",
 
     // other functions
-    "M2", "b", "b2", "l'", "d'", "U'", "b'", "f2", "y2", "S2",
+    "M2", "b", "b2", "l'", "d'", "U'", "b'", "f2", "y2", "S2", "u", "d",
 
     // literals
     "S", "S'", "M", "M2", "M'", "E", "E2", "E'",
@@ -70,7 +70,7 @@ var allMoves = [
 ];
 
 var singleMoveCommands = allMoves.slice(0, 39),
-    stdlibFunctions = allMoves.slice(0, 29);
+    stdlibFunctions = allMoves.slice(0, 27);
 
 class Token {
     constructor(type, name, moves, value = null, pop = true) {
@@ -222,6 +222,7 @@ var compile = (tokens, input = "", options = {}) => {
 
     if (typeof globalThis.depth == "undefined") globalThis.depth = 0;
     globalThis.errored = false;
+    globalThis.printed = false;
     
     var compiled = options.includeStack ? [`var ${options.stackName} = [];`] : [];
     if (options.setup) {
@@ -230,7 +231,7 @@ var compile = (tokens, input = "", options = {}) => {
         compiled.push("var loopVars = {};");
     }
 
-    var cubestackPrint = (pop = true) => {
+    var cubestackPrint = (pop) => {
         if (pop) compiled.push(`var toPrint = ${options.stackName}.pop() ?? "";`);
         else compiled.push(`var toPrint = ${options.stackName}[${options.stackName}.length - 1] ?? "";`);
 
@@ -297,6 +298,8 @@ var compile = (tokens, input = "", options = {}) => {
                     compiled.push(`${options.stackName}.push(${options.stackName}.slice());`);
                 } else if (token.moves == "d'") { // set the stack to the top item
                     compiled.push(`${options.stackName} = Array.isArray(${options.stackName}[${options.stackName}.length - 1]) ? ${options.stackName}.pop() : [${options.stackName}.pop()];`);
+                } else if (token.moves == "d") {
+                    compiled.push(`${options.stackName} = ${options.stackName}.slice(0, -1).concat(${options.stackName}.pop());`);
                 } else if (token.moves == "l'") { // swap the top two items on the stack
                     compiled.push(
                         `var topTwo = ${options.stackName}.slice(${options.stackName}.length - 2);`,
@@ -344,7 +347,7 @@ var compile = (tokens, input = "", options = {}) => {
                     `}`
                 );
             } else if (token.name == "while loop") {
-                if (token.value.length == 1 || token.value[0].length == 0) {
+                if (token.value.length == 1 || token.value[1].length == 0) {
                     compiled.push(
                         `while (true) {`,
                         compile(token.value[0], input, codeBlockOptions)
@@ -374,7 +377,7 @@ var compile = (tokens, input = "", options = {}) => {
         }
     }
     
-    if (!globalThis.printed && options.setup && !globalThis.errored) cubestackPrint();
+    if (!globalThis.printed && options.setup && !globalThis.errored) cubestackPrint(true);
 
     return compiled.join(options.joinCompiled);
 }

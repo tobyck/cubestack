@@ -1,12 +1,12 @@
 var allMoves = [
     "R", "R'", "L", "L'", "L2", "R2", "U", 
     "D", "D'", "F", "F'", "B", "B'", "D2", 
-    "F2", "B2", "r", "r'", "r2", "d", "u", 
+    "F2", "B2", "r", "r'", "r2", "u", 
     "u'", "l2", "l", "d2", "U2", "f", 
     "f'", "M2", "b", "b2", "l'", "d'", "U'", 
     "b'", "f2", "y2", "S2", "S", "S'", "M", 
     "M2", "M'", "E", "E2", "E'",  "x", "x2", 
-    "x'", "y", "y'", "z", "z2", "z'", "u2"
+    "x'", "y", "y'", "z", "z2", "z'", "u2", "d"
 ];
 
 var base36map = [
@@ -66,9 +66,9 @@ var highlight = (code) => {
                 output += `<span style="color:#ffd500">${move}</span>`;
             } else if (move == "E2") {
                 output += `<span style="color:white">E2</span>`;
-            } else if (allMoves.slice(0, 28).concat(["b", "f2"]).includes(move)) { // stdlib functions (plus some)
+            } else if (allMoves.slice(0, 27).concat(["b", "f2"]).includes(move)) { // stdlib functions (plus some)
                 addSingleMove(move, "#e0e07e");
-            } else if ("b' M2 b2 d' l' U'".split(" ").includes(move)) { // stack modification
+            } else if ("b' M2 b2 d' l' U' d".split(" ").includes(move)) { // stack modification
                 addSingleMove(move, "#389edb");
             } else if ("x x2 x' y y' z z2 z' S2".split(" ").includes(move)) { // control flow
                 addSingleMove(move, "#d082c4");
