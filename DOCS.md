@@ -61,7 +61,7 @@ Functions pop a certain amount of items off the stack perform an operation, then
 `d'` - Set the stack to the top item on the stack  
 `U'` - Pop the stack  
 `l'` - Swap the top two items on the stack  
-`d` - Push each item of list to the stack, (similar to `...` in JS)
+`d` - Push each item of list to the stack, (similar to `...` in JS)  
 `f2` - Exit the program  
 `l` - Length of `a`  
 `f` - Floor the top item on the stack  
@@ -76,7 +76,7 @@ Conditionals are written as `x <conditional code> x2 <optional conditional code>
 For loops are created by pushing something to iterate to the stack, then pushing the name of your loop variable (as a string) to the stack. You can then use the enclose the code you want to loop in `y` and `y'`. To get the value of the loop variable, push it's name to the stack, then use the `y2` command. To break the loop, use `S2`.
 
 ## While Loops
-To create a while loop, use `z <condition> z2 <code> z'`, The code will run until the condition is false. Exiting the loop is the same as exiting a for loop - `S2`.
+To create a while loop, use `z <condition> z2 <code> z'`, The code will run until the condition is false. Exiting the loop is the same as exiting a for loop - `S2`. To make the loop run forever, leave the condition empty (in which case the `z2` is no longer required) or provide it with a value that will always be truthy.
 
 ## A Final Note
 If you actually just read all of that, I'm sorry.

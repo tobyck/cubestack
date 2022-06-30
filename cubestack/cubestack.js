@@ -238,7 +238,7 @@ var compile = (tokens, input = "", options = {}) => {
         if (options.platform == "node") {
             compiled.push(`process.stdout.write(toPrint + ${JSON.stringify(options.lineEnding)});`);
         } else if (options.platform == "web") {
-            compiled.push(`postMessage(toPrint + ${JSON.stringify(options.lineEnding)});`);
+            compiled.push(`postMessage({ message: toPrint + ${JSON.stringify(options.lineEnding)}, type: "output" });`);
         }
     }
 
@@ -306,7 +306,7 @@ var compile = (tokens, input = "", options = {}) => {
                     );
                 } else if (token.moves == "f2") { // exit the program
                     if (options.platform == "node") compiled.push(`process.exit(0);`);
-                    else compiled.push(`postMessage("exit");`);
+                    else compiled.push(`postMessage({ message: "exit", type: "control" });`);
                 } else if (token.moves == "y2") { // get a loop variable
                     compiled.push(`${options.stackName}.push(loopVars[${options.stackName}.pop()]);`);
                 } else if (token.moves == "S2") { // break a loop
@@ -370,7 +370,7 @@ var compile = (tokens, input = "", options = {}) => {
             if (options.platform == "node") {
                 compiled.push(`process.stdout.write("error:\\n  ${token.value}\\n  ${token.name}\\n");`);
             } else if (options.platform == "web") {
-                compiled.push(`postMessage("error:\\n  ${token.name}\\n  ${token.value}\\n");`);
+                compiled.push(`postMessage({ message: "error:\\n  ${token.name}\\n  ${token.value}\\n", type: "output" });`);
             }
             break;
         }

@@ -82,11 +82,7 @@ if (navigator.userAgent.indexOf("Safari") >= 0 && navigator.userAgent.indexOf("C
 
     var run = () => {
         var compiled = compile(lex($("#code-display").innerText), $("#input-textarea").value, { platform: "web" });
-        console.log(`var stack = []; fetch("https://raw.githubusercontent.com/tobyck/cubestack/master/cubestack/stdlib.js").then(response => response.text()).then(text => { eval(text); ${compiled} });`)
-        var blob = new Blob([ `var stack = []; fetch("https://raw.githubusercontent.com/tobyck/cubestack/master/cubestack/stdlib.js").then(response => response.text()).then(text => { 
-            eval(text);
-            ${compiled}
-        });` ], { type: "text/javascript" });
+        var blob = new Blob([ `fetch("https://raw.githubusercontent.com/tobyck/cubestack/master/cubestack/stdlib.js").then(response => response.text()).then(text => { eval(text); ${compiled} });` ], { type: "text/javascript" });
         var blobURL = URL.createObjectURL(blob);
         var worker = new Worker(blobURL);
 
@@ -94,10 +90,16 @@ if (navigator.userAgent.indexOf("Safari") >= 0 && navigator.userAgent.indexOf("C
             worker.terminate();
         }, 5000);
 
-        $("#output").innerText = "";
+        $("#output").innerText = "\n";
+        var started = false;
         worker.onmessage = event => {
-            if (event.data == "exit") worker.terminate();
-            else $("#output").innerText += event.data;
+            if (!started) {
+                $("#output").innerText = "";
+                started = true;
+            }
+
+            if (event.data.type == "output") $("#output").innerText += event.data.message;
+            else if (event.data.message == "exit") worker.terminate();
         }
     }
 
