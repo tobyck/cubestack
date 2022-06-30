@@ -82,7 +82,23 @@ if (navigator.userAgent.indexOf("Safari") >= 0 && navigator.userAgent.indexOf("C
 
     var run = () => {
         var compiled = compile(lex($("#code-display").innerText), $("#input-textarea").value, { platform: "web" });
-        eval(compiled);
+        console.log(`var stack = []; fetch("https://raw.githubusercontent.com/tobyck/cubestack/master/cubestack/stdlib.js").then(response => response.text()).then(text => { eval(text); ${compiled} });`)
+        var blob = new Blob([ `var stack = []; fetch("https://raw.githubusercontent.com/tobyck/cubestack/master/cubestack/stdlib.js").then(response => response.text()).then(text => { 
+            eval(text);
+            ${compiled}
+        });` ], { type: "text/javascript" });
+        var blobURL = URL.createObjectURL(blob);
+        var worker = new Worker(blobURL);
+
+        setTimeout(() => {
+            worker.terminate();
+        }, 5000);
+
+        $("#output").innerText = "";
+        worker.onmessage = event => {
+            if (event.data == "exit") worker.terminate();
+            else $("#output").innerText += event.data;
+        }
     }
 
     document.addEventListener("keydown", event => {

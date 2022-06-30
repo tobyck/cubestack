@@ -226,8 +226,7 @@ var compile = (tokens, input = "", options = {}) => {
     
     var compiled = options.includeStack ? [`var ${options.stackName} = [];`] : [];
     if (options.setup) {
-        if (options.platform == "node") compiled.push("var stdlib = require(\"./stdlib.js\");");
-        else if (options.platform == "web") compiled.push(`$("#output").innerText = "";`)
+        if (options.platform == "node") compiled.push(`var stdlib = require("./stdlib.js");`);
         compiled.push("var loopVars = {};");
     }
 
@@ -239,7 +238,7 @@ var compile = (tokens, input = "", options = {}) => {
         if (options.platform == "node") {
             compiled.push(`process.stdout.write(toPrint + ${JSON.stringify(options.lineEnding)});`);
         } else if (options.platform == "web") {
-            compiled.push(`$("#output").innerText += toPrint + ${JSON.stringify(options.lineEnding)};`);
+            compiled.push(`postMessage(toPrint + ${JSON.stringify(options.lineEnding)});`);
         }
     }
 
@@ -306,8 +305,8 @@ var compile = (tokens, input = "", options = {}) => {
                         `${options.stackName} = ${options.stackName}.slice(0, ${options.stackName}.length - 2).concat(topTwo.reverse());`,
                     );
                 } else if (token.moves == "f2") { // exit the program
-                    compiled.push("// program exited (f2 command)");
-                    return compiled.join("\n");
+                    if (options.platform == "node") compiled.push(`process.exit(0);`);
+                    else compiled.push(`postMessage("exit");`);
                 } else if (token.moves == "y2") { // get a loop variable
                     compiled.push(`${options.stackName}.push(loopVars[${options.stackName}.pop()]);`);
                 } else if (token.moves == "S2") { // break a loop
@@ -371,7 +370,7 @@ var compile = (tokens, input = "", options = {}) => {
             if (options.platform == "node") {
                 compiled.push(`process.stdout.write("error:\\n  ${token.value}\\n  ${token.name}\\n");`);
             } else if (options.platform == "web") {
-                compiled.push(`$("#output").innerText += "error:\\n  ${token.name}\\n  ${token.value}\\n";`);
+                compiled.push(`postMessage("error:\\n  ${token.name}\\n  ${token.value}\\n");`);
             }
             break;
         }
